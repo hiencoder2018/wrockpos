@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useTranslation } from 'react-i18next';
 
 // Sample product data
 const demoProducts = [
@@ -71,6 +72,8 @@ const demoProducts = [
 ];
 
 function ProductList({ products }) {
+
+  const { t } = useTranslation();
   
   const itemsPerPage = 3; // Number of items to display per page
   const [currentPage, setCurrentPage] = useState(1);
@@ -96,7 +99,7 @@ function ProductList({ products }) {
         <div key={product.id} className="product-item">
           <img src={product.image} alt={product.name} />
           <p>{product.name}</p>
-          <p>Price: ${product.price.toFixed(2)}</p>
+          <p>{t('productList.price', { price: product.price.toFixed(2) })}</p>
         </div>
       ))}
       

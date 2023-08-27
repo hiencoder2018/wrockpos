@@ -1,0 +1,5 @@
+{
+    "productList.price": "Price: ${{price}}",
+    "pagination.previous": "Previous",
+    "pagination.next": "Next"
+}
