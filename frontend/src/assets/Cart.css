@@ -1,0 +1,37 @@
+/* Cart.css or your preferred CSS file */
+
+#rockpos-app .cart {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  #rockpos-app .cart-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  #rockpos-app .cart-item img {
+    max-width: 80px;
+    height: auto;
+  }
+  
+  #rockpos-app .item-details {
+    flex-grow: 1;
+  }
+  
+  #rockpos-app .item-name {
+    font-weight: bold;
+  }
+  
+  #rockpos-app .delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
