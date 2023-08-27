@@ -85,7 +85,6 @@ function ProductList({ products }) {
   const totalPages = Math.ceil(demoProducts.length / itemsPerPage);
 
   const handlePageChange = (newPage) => {
-    console.log('aab')
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
@@ -100,11 +99,13 @@ function ProductList({ products }) {
           <p>Price: ${product.price.toFixed(2)}</p>
         </div>
       ))}
+      
       <div className="pagination">
         {Array.from({ length: totalPages }).map((_, index) => (
+          
           <button
             key={index}
-            className={index + 1 === currentPage ? 'active' : ''}
+            
             onClick={() => handlePageChange(index + 1)}
           >
             {index + 1}
