@@ -7,67 +7,67 @@ const demoProducts = [
     id: 1,
     name: 'Product 1',
     price: 10.99,
-    image: 'product1.jpg',
+    image: 'http://wrp.test/wp-content/uploads/2023/08/logo-1.jpg',
   },
   {
     id: 2,
     name: 'Product 2',
     price: 15.49,
-    image: 'product2.jpg',
+    image: 'http://wrp.test/wp-content/uploads/2023/08/pennant-1.jpg',
   },
   {
     id: 3,
     name: 'Product 3',
     price: 8.99,
-    image: 'product3.jpg',
+    image: 'http://wrp.test/wp-content/uploads/2023/08/t-shirt-with-logo-1.jpg',
   },
   {
     id: 4,
     name: 'Product 4',
     price: 8.99,
-    image: 'product3.jpg',
+    image: 'http://wrp.test/wp-content/uploads/2023/08/beanie-with-logo-1.jpg',
   },
   {
     id: 5,
     name: 'Product 5',
     price: 8.99,
-    image: 'product3.jpg',
+    image: 'http://wrp.test/wp-content/uploads/2023/08/sunglasses-2.jpg',
   },
   {
     id: 6,
     name: 'Product 6',
     price: 8.99,
-    image: 'product3.jpg',
+    image: 'http://wrp.test/wp-content/uploads/2023/08/hoodie-with-pocket-2.jpg',
   },
   {
     id: 7,
     name: 'Product 7',
     price: 8.99,
-    image: 'product3.jpg',
+    image: 'http://wrp.test/wp-content/uploads/2023/08/hoodie-with-zipper-2.jpg',
   },
   {
     id: 8,
     name: 'Product 8',
     price: 8.99,
-    image: 'product3.jpg',
+    image: 'http://wrp.test/wp-content/uploads/2023/08/long-sleeve-tee-2.jpg',
   },
   {
     id: 9,
     name: 'Product 9',
     price: 8.99,
-    image: 'product3.jpg',
+    image: 'http://wrp.test/wp-content/uploads/2023/08/tshirt-2.jpg',
   },
   {
     id: 10,
     name: 'Product 10',
     price: 8.99,
-    image: 'product3.jpg',
+    image: 'http://wrp.test/wp-content/uploads/2023/08/beanie-2.jpg',
   },
   {
     id: 11,
     name: 'Product 11',
     price: 8.99,
-    image: 'product3.jpg',
+    image: 'http://wrp.test/wp-content/uploads/2023/08/belt-2.jpg',
   },
 ];
 
@@ -95,6 +95,7 @@ function ProductList({ products }) {
 
   return (
     <div className="product-list">
+     
       {productsToShow.map(product => (
         <div key={product.id} className="product-item">
           <img src={product.image} alt={product.name} />
@@ -102,6 +103,8 @@ function ProductList({ products }) {
           <p>{t('productList.price', { price: product.price.toFixed(2) })}</p>
         </div>
       ))}
+
+      <div className='clear'></div>
       
       <div className="pagination">
         {Array.from({ length: totalPages }).map((_, index) => (

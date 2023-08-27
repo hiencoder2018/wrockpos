@@ -20,11 +20,32 @@
 #rockpos-app .product-list {
   position: fixed;
   bottom: 30px;
-  width: 100%;
+  width: 60%;
   padding: 5px;
   overflow-x: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
 }
 
+#rockpos-app .product-list img{
+  max-width: 70px;
+  max-height: 70px;
+}
+
+#rockpos-app .product-list .product-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+#rockpos-app .product-list .product-item img {
+  max-width: 100%;
+  height: auto;
+}
+#rockpos-app .clear {
+  clear:both;
+}
 
 @keyframes logo-spin {
   from {
