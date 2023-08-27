@@ -7,7 +7,7 @@ function LeftColumn() {
   return (
     <div className="left-column">
       <ProductSearch />
-      <Cart />
+      <Cart />      
       <ProductList />
     </div>
   );

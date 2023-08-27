@@ -5,8 +5,15 @@ function ButtonsSection() {
   return (
     <div className="buttons-section">
       <button>$ Currency</button>
-      <button>Button 2</button>
-      {/* ... Repeat for other buttons */}
+      <button>On Hold</button>
+      <button>Custom Sales</button>
+      <button>Custom Sales</button>
+      <button>Sales Person</button>
+      <button>In/Out</button>
+      <button>Pre-order</button>
+      <button>Discount</button>
+      <button>Shipping</button>
+      <button>Note</button>      
     </div>
   );
 }
