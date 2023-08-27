@@ -39,6 +39,6 @@ add_action( 'admin_enqueue_scripts', 'rockpos_admin_enqueue_scripts' );
  * @return void
  */
 function rockpos_admin_enqueue_scripts() {
-    //wp_enqueue_style( 'rockpos-style', plugin_dir_url( __FILE__ ) . 'build/index.css' );    
+    wp_enqueue_style( 'rockpos-style', plugin_dir_url( __FILE__ ) . 'frontend/dist/assets/index.css' );    
     wp_enqueue_script( 'rockpos-script', plugin_dir_url(__FILE__) . 'frontend/dist/assets/index.js', array( 'wp-element' ), '1.0.0', true );
 }
