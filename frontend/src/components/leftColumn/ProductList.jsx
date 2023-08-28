@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { useTranslation } from 'react-i18next';
+import { useQuery } from 'react-query';
 
 // Sample product data
 const demoProducts = [
@@ -93,6 +94,19 @@ function ProductList({ products }) {
     }
   };
 
+
+  const fetchProducts = async () => {
+    const response = await fetch('/wp-json/rockpos/v3/products'); // Adjust the URL accordingly
+    if (!response.ok) {
+      throw new Error('Error fetching products');
+    }
+    console.log(response.json())
+    return response.json();
+  };
+
+  const { data: wproducts, error, isLoading } = useQuery('wproducts', fetchProducts);
+
+  
   return (
     <div className="product-list">
      

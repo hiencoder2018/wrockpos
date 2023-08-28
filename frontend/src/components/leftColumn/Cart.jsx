@@ -89,12 +89,18 @@ function Cart() {
     <div className="cart">
       {demoProducts.map(item => (
         <div key={item.id} className="cart-item">
-          <img src={item.image} alt={item.name} />
+          <img src={item.image} alt={item.name} className="item-image" />
           <div className="item-details">
-            <p className="item-name">{item.name}</p>
-            <p className="item-price">${item.price.toFixed(2)}</p>
-            <p className="item-quantity">Quantity: {item.quantity}</p>
-            <p className="item-total">Total: ${(item.price * item.quantity).toFixed(2)}</p>
+            <div className="item-properties">
+              <span className="property-label">Name:</span>
+              <span className="property-value">{item.name}</span>
+              <span className="property-label">Price:</span>
+              <span className="property-value">${item.price.toFixed(2)}</span>
+              <span className="property-label">Quantity:</span>
+              <span className="property-value">{item.quantity}</span>
+              <span className="property-label">Total:</span>
+              <span className="property-value">${(item.price * item.quantity).toFixed(2)}</span>
+            </div>
             <button className="delete-button">Delete</button>
           </div>
         </div>

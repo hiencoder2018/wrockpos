@@ -1,37 +1,43 @@
-/* Cart.css or your preferred CSS file */
-
 #rockpos-app .cart {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  #rockpos-app .cart-item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  #rockpos-app .cart-item img {
-    max-width: 80px;
-    height: auto;
-  }
-  
-  #rockpos-app .item-details {
-    flex-grow: 1;
-  }
-  
-  #rockpos-app .item-name {
-    font-weight: bold;
-  }
-  
-  #rockpos-app .delete-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#rockpos-app .cart .cart-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+#rockpos-app .cart .item-image {
+  max-width: 80px;
+  height: auto;
+}
+
+#rockpos-app .cart .item-details {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#rockpos-app .cart .item-properties {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+#rockpos-app .cart .property-label {
+  font-weight: bold;
+}
+
+#rockpos-app .cart .delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
