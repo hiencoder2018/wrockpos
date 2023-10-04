@@ -41,8 +41,8 @@ add_action( 'admin_enqueue_scripts', 'rockpos_admin_enqueue_scripts' );
  * @return void
  */
 function rockpos_admin_enqueue_scripts() {
-    wp_enqueue_style( 'rockpos-style', plugin_dir_url( __FILE__ ) . 'frontend/dist/assets/index.css' );    
-    wp_enqueue_script( 'rockpos-script', plugin_dir_url(__FILE__) . 'frontend/dist/assets/index.js', array( 'wp-element' ), '1.0.0', true );
+    wp_enqueue_style( 'rockpos-style', plugin_dir_url( __FILE__ ) . 'frontend/dist/assets/index.css' );   
+    wp_enqueue_script( 'rockpos-script', plugin_dir_url(__FILE__) . 'frontend/dist/assets/index.js', array( 'wp-element' ), '1.0.0', true );    
 }
 
 
@@ -56,10 +56,8 @@ function fetch_woocommerce_products() {
           'version' => 'wc/v3',
         ]
       );
-
     // Parse the JSON response
-    $products = $woocommerce->get('products');
-    
+    $products = $woocommerce->get('products'); 
     return $products;
 }
 
@@ -71,3 +69,44 @@ function register_custom_api_endpoint() {
     ));
 }
 add_action('rest_api_init', 'register_custom_api_endpoint');
+
+
+add_action( 'wp_ajax_getProducts', 'getProducts_init' );
+add_action( 'wp_ajax_nopriv_getProducts', 'getProducts_init' );
+function getProducts_init() {
+    $args = array(
+        'status'            => array( 'draft', 'pending', 'private', 'publish' ),
+        'type'              => array_merge( array_keys( wc_get_product_types() ) ),
+        'parent'            => null,
+        'sku'               => '',
+        'category'          => array(),
+        'tag'               => array(),
+        'limit'             => get_option( 'posts_per_page' ),  // -1 for unlimited
+        'offset'            => null,
+        'page'              => 1,
+        'include'           => array(),
+        'exclude'           => array(),
+        'orderby'           => 'date',
+        'order'             => 'DESC',
+        'return'            => 'objects',
+        'paginate'          => false,
+        'shipping_class'    => array(),
+    );
+    
+    // Array of product objects
+    $products = wc_get_products($args);
+    
+    $list = array();
+    $i = 1;
+    foreach( $products as $product ) {
+
+        // Collect product variables
+        $list[$i]['id']   = $product->get_id();
+        $list[$i]['name'] = $product->get_name();
+        $list[$i]['image'] = $product->get_image();
+        $list[$i]['price'] = $product->get_price();
+        $i++;
+    }
+    wp_send_json_success($list);
+    die();
+}

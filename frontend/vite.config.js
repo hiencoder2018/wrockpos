@@ -33,6 +33,7 @@ if (host === "localhost") {
 export default defineConfig({
   plugins: [react()],
   build: {
+    minify: false,
     rollupOptions: {
       output: {
         entryFileNames: `assets/[name].js`,

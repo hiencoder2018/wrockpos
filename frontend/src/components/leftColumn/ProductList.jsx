@@ -1,127 +1,54 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
-// Sample product data
-const demoProducts = [
-  {
-    id: 1,
-    name: 'Product 1',
-    price: 10.99,
-    image: 'http://wrp.test/wp-content/uploads/2023/08/logo-1.jpg',
-  },
-  {
-    id: 2,
-    name: 'Product 2',
-    price: 15.49,
-    image: 'http://wrp.test/wp-content/uploads/2023/08/pennant-1.jpg',
-  },
-  {
-    id: 3,
-    name: 'Product 3',
-    price: 8.99,
-    image: 'http://wrp.test/wp-content/uploads/2023/08/t-shirt-with-logo-1.jpg',
-  },
-  {
-    id: 4,
-    name: 'Product 4',
-    price: 8.99,
-    image: 'http://wrp.test/wp-content/uploads/2023/08/beanie-with-logo-1.jpg',
-  },
-  {
-    id: 5,
-    name: 'Product 5',
-    price: 8.99,
-    image: 'http://wrp.test/wp-content/uploads/2023/08/sunglasses-2.jpg',
-  },
-  {
-    id: 6,
-    name: 'Product 6',
-    price: 8.99,
-    image: 'http://wrp.test/wp-content/uploads/2023/08/hoodie-with-pocket-2.jpg',
-  },
-  {
-    id: 7,
-    name: 'Product 7',
-    price: 8.99,
-    image: 'http://wrp.test/wp-content/uploads/2023/08/hoodie-with-zipper-2.jpg',
-  },
-  {
-    id: 8,
-    name: 'Product 8',
-    price: 8.99,
-    image: 'http://wrp.test/wp-content/uploads/2023/08/long-sleeve-tee-2.jpg',
-  },
-  {
-    id: 9,
-    name: 'Product 9',
-    price: 8.99,
-    image: 'http://wrp.test/wp-content/uploads/2023/08/tshirt-2.jpg',
-  },
-  {
-    id: 10,
-    name: 'Product 10',
-    price: 8.99,
-    image: 'http://wrp.test/wp-content/uploads/2023/08/beanie-2.jpg',
-  },
-  {
-    id: 11,
-    name: 'Product 11',
-    price: 8.99,
-    image: 'http://wrp.test/wp-content/uploads/2023/08/belt-2.jpg',
-  },
-];
+const fetchProducts = async() => {
+  const res = await fetch(ajaxurl+"?action=getProducts", {
+    dataType: 'jsonp',
+    headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json'
+    }
+  });
+  return res.json();
+}
 
-function ProductList({ products }) {
 
-  const { t } = useTranslation();
+function ProductList() {
+
+  const { data, status }  = useQuery('data',fetchProducts);
   
-  const itemsPerPage = 3; // Number of items to display per page
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // Calculate the index range for the current page
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  // Get the products for the current page
-  const productsToShow = demoProducts.slice(startIndex, endIndex);
-
-  const totalPages = Math.ceil(demoProducts.length / itemsPerPage);
-
+  if (status == 'loading') return <div>Loading....</div>;  
+  // console.log('------')
+  // console.log(productsToShow)
+  const result = data.data;
+  const products = Object.values(result)
+  console.log(products);
+  const itemsPerPage = 3;
+  //const [currentPage, setCurrentPage] = useState(1);  
+  //const startIndex = (currentPage - 1) * itemsPerPage;
+  //const endIndex = startIndex + itemsPerPage;
+  // const productsToShow = products.slice(startIndex, endIndex);
+  // const totalPages = Math.ceil(products.length / itemsPerPage);
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
   };
-
-
-  const fetchProducts = async () => {
-    const response = await fetch('/wp-json/rockpos/v3/products'); // Adjust the URL accordingly
-    if (!response.ok) {
-      throw new Error('Error fetching products');
-    }
-    console.log(response.json())
-    return response.json();
-  };
-
-  const { data: wproducts, error, isLoading } = useQuery('wproducts', fetchProducts);
-
-  
   return (
-    <div className="product-list">
-     
-      {productsToShow.map(product => (
+    <div  className="product-list">
+      {products.map(product => (
         <div key={product.id} className="product-item">
-          <img src={product.image} alt={product.name} />
+          <p dangerouslySetInnerHTML={ { __html: product.image } }></p>
           <p>{product.name}</p>
-          <p>{t('productList.price', { price: product.price.toFixed(2) })}</p>
+          <p>{product.price}</p>
         </div>
       ))}
 
       <div className='clear'></div>
-      
+            
       <div className="pagination">
-        {Array.from({ length: totalPages }).map((_, index) => (
+        {Array.from({ length: itemsPerPage }).map((_, index) => (
           
           <button
             key={index}
