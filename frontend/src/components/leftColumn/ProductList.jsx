@@ -17,19 +17,13 @@ const fetchProducts = async() => {
 function ProductList() {
 
   const { data, status }  = useQuery('data',fetchProducts);
-  
+  const [currentPage, setCurrentPage] = useState(1);
+
   if (status == 'loading') return <div>Loading....</div>;  
-  // console.log('------')
-  // console.log(productsToShow)
+  
   const result = data.data;
-  const products = Object.values(result)
-  console.log(products);
-  const itemsPerPage = 3;
-  //const [currentPage, setCurrentPage] = useState(1);  
-  //const startIndex = (currentPage - 1) * itemsPerPage;
-  //const endIndex = startIndex + itemsPerPage;
-  // const productsToShow = products.slice(startIndex, endIndex);
-  // const totalPages = Math.ceil(products.length / itemsPerPage);
+  const products = Object.values(result.products)
+  const totalPages = result.total_page;
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
@@ -41,14 +35,14 @@ function ProductList() {
         <div key={product.id} className="product-item">
           <p dangerouslySetInnerHTML={ { __html: product.image } }></p>
           <p>{product.name}</p>
-          <p>{product.price}</p>
+          <p dangerouslySetInnerHTML={ { __html: product.price }}></p>
         </div>
       ))}
 
       <div className='clear'></div>
             
       <div className="pagination">
-        {Array.from({ length: itemsPerPage }).map((_, index) => (
+        {Array.from({ length: 10 }).map((_, index) => (
           
           <button
             key={index}

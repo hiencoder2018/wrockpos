@@ -45,32 +45,6 @@ function rockpos_admin_enqueue_scripts() {
     wp_enqueue_script( 'rockpos-script', plugin_dir_url(__FILE__) . 'frontend/dist/assets/index.js', array( 'wp-element' ), '1.0.0', true );    
 }
 
-
-// Function to fetch WooCommerce products using API
-function fetch_woocommerce_products() {
-    $woocommerce = new Client(
-        'http://wrp.test',
-        'ck_2db8f1ca0faab4af15a0c76f04f5ef9419ca7525',
-        'cs_7156fb8aad8dbf733093b37c0aac38889446a3b9',
-        [
-          'version' => 'wc/v3',
-        ]
-      );
-    // Parse the JSON response
-    $products = $woocommerce->get('products'); 
-    return $products;
-}
-
-// Add custom REST API endpoint to fetch WooCommerce products
-function register_custom_api_endpoint() {
-    register_rest_route('rockpos/v3', '/products', array(
-        'methods' => 'GET',
-        'callback' => 'fetch_woocommerce_products',
-    ));
-}
-add_action('rest_api_init', 'register_custom_api_endpoint');
-
-
 add_action( 'wp_ajax_getProducts', 'getProducts_init' );
 add_action( 'wp_ajax_nopriv_getProducts', 'getProducts_init' );
 function getProducts_init() {
@@ -81,7 +55,7 @@ function getProducts_init() {
         'sku'               => '',
         'category'          => array(),
         'tag'               => array(),
-        'limit'             => get_option( 'posts_per_page' ),  // -1 for unlimited
+        'limit'             => get_option( 'posts_per_page' ),  // -1 for unlimited        
         'offset'            => null,
         'page'              => 1,
         'include'           => array(),
@@ -89,24 +63,29 @@ function getProducts_init() {
         'orderby'           => 'date',
         'order'             => 'DESC',
         'return'            => 'objects',
-        'paginate'          => false,
+        'paginate'          => true,    
         'shipping_class'    => array(),
     );
+    $result = wc_get_products($args);
     
-    // Array of product objects
-    $products = wc_get_products($args);
+//    echo '<pre>';
+//    print_r($products->products);
+//    die;
     
     $list = array();
     $i = 1;
-    foreach( $products as $product ) {
-
+    foreach($result->products as $product) {
         // Collect product variables
         $list[$i]['id']   = $product->get_id();
         $list[$i]['name'] = $product->get_name();
         $list[$i]['image'] = $product->get_image();
         $list[$i]['price'] = $product->get_price();
+        //$list[$i]['attributes'] = $product->get_available_variations();
         $i++;
     }
-    wp_send_json_success($list);
+    wp_send_json_success(array (
+        'total_page' => $result->max_num_pages,
+        'products' => $list
+        ));
     die();
 }
