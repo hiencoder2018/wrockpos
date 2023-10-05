@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
-const fetchProducts = async() => {
-  const res = await fetch(ajaxurl+"?action=getProducts", {
+const fetchProducts = async({ queryKey }) => {
+  const [ _, currentPage ] = queryKey;
+  const res = await fetch(ajaxurl+`?action=getProducts&currentPage=${currentPage}`, {
     dataType: 'jsonp',
     headers: {
        'Accept': 'application/json',
@@ -16,8 +17,9 @@ const fetchProducts = async() => {
 
 function ProductList() {
 
-  const { data, status }  = useQuery('data',fetchProducts);
   const [currentPage, setCurrentPage] = useState(1);
+  const { data, status }  = useQuery(['listProduct', currentPage],fetchProducts);
+  
 
   if (status == 'loading') return <div>Loading....</div>;  
   
@@ -42,7 +44,7 @@ function ProductList() {
       <div className='clear'></div>
             
       <div className="pagination">
-        {Array.from({ length: 10 }).map((_, index) => (
+        {Array.from({ length: totalPages }).map((_, index) => (
           
           <button
             key={index}

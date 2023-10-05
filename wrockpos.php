@@ -48,6 +48,7 @@ function rockpos_admin_enqueue_scripts() {
 add_action( 'wp_ajax_getProducts', 'getProducts_init' );
 add_action( 'wp_ajax_nopriv_getProducts', 'getProducts_init' );
 function getProducts_init() {
+    $current_page = $_REQUEST['currentPage'];   
     $args = array(
         'status'            => array( 'draft', 'pending', 'private', 'publish' ),
         'type'              => array_merge( array_keys( wc_get_product_types() ) ),
@@ -57,7 +58,7 @@ function getProducts_init() {
         'tag'               => array(),
         'limit'             => get_option( 'posts_per_page' ),  // -1 for unlimited        
         'offset'            => null,
-        'page'              => 1,
+        'page'              => $current_page,
         'include'           => array(),
         'exclude'           => array(),
         'orderby'           => 'date',
