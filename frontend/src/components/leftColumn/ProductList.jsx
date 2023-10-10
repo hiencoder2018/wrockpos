@@ -14,6 +14,16 @@ const fetchProducts = async({ queryKey }) => {
   return res.json();
 }
 
+const addProductToCart = async() => {
+  const res = await fetch(ajaxurl+`?action=addProductToCart`, {
+    dataType: 'jsonp',
+    headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json'
+    }
+  });
+  return res.json();
+}
 
 function ProductList() {
 
@@ -31,6 +41,8 @@ function ProductList() {
       setCurrentPage(newPage);
     }
   };
+  
+
   return (
     <div  className="product-list">
       {products.map(product => (
@@ -38,6 +50,7 @@ function ProductList() {
           <p dangerouslySetInnerHTML={ { __html: product.image } }></p>
           <p>{product.name}</p>
           <p dangerouslySetInnerHTML={ { __html: product.price }}></p>
+          <p><button onClick={addProductToCart}>Default</button>;</p>
         </div>
       ))}
 
