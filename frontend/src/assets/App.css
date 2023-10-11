@@ -17,15 +17,15 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-#rockpos-app .product-list {
-  position: fixed;
+#rockpos-app .product-list {  
   bottom: 30px;
-  width: 60%;
+  width: 100%;
   padding: 5px;
-  overflow-x: hidden;
+  overflow-x: scroll;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  display: -webkit-inline-box;
 }
 
 #rockpos-app .product-list img{
@@ -45,6 +45,11 @@
 }
 #rockpos-app .clear {
   clear:both;
+}
+
+#rockpos-app .product-image {
+  width: 50px;
+  height: 50px;
 }
 
 @keyframes logo-spin {
@@ -96,3 +101,4 @@
   justify-content: space-between;
   align-items: flex-end;
 }
+

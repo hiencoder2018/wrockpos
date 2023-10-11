@@ -42,20 +42,27 @@ function ProductList() {
     }
   };
   
-
+  console.log(products);
   return (
-    <div  className="product-list">
-      {products.map(product => (
-        <div key={product.id} className="product-item">
-          <p dangerouslySetInnerHTML={ { __html: product.image } }></p>
-          <p>{product.name}</p>
-          <p dangerouslySetInnerHTML={ { __html: product.price }}></p>
-          <p><button onClick={addProductToCart}>Default</button>;</p>
-        </div>
-      ))}
-
-      <div className='clear'></div>
-            
+    <div>
+      <div  className="product-list">
+        {products.map(product => (
+          <div key={product.id} className="product-item">
+            <p  className="product-image" dangerouslySetInnerHTML={ { __html: product.image } }></p>
+            <p>{product.name}</p>
+            <p dangerouslySetInnerHTML={ { __html: product.price }}></p>
+            <p>{product.type}</p>
+            {
+              product.type == 'variable'? 
+              <p>
+                BBBB
+              </p>
+              : 
+              ''
+            }
+          </div>
+        ))}
+      </div>              
       <div className="pagination">
         {Array.from({ length: totalPages }).map((_, index) => (
           
@@ -68,7 +75,7 @@ function ProductList() {
           </button>
         ))}
       </div>
-    </div>
+    </div>  
   );
 }
 

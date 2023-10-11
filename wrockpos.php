@@ -88,6 +88,9 @@ function getProducts_init() {
         }
         $i++;
     }
+    // echo '<pre>';
+    // print_r($list);
+    // die;
     wp_send_json_success(array (
         'total_page' => $result->max_num_pages,
         'products' => $list
