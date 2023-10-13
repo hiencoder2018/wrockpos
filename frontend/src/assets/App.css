@@ -37,6 +37,7 @@
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
+  width: 100px;
 }
 
 #rockpos-app .product-list .product-item img {
@@ -48,8 +49,7 @@
 }
 
 #rockpos-app .product-image {
-  width: 50px;
-  height: 50px;
+
 }
 
 @keyframes logo-spin {
@@ -92,13 +92,27 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border: 1px solid #DFDFDF;
+  padding: 10px;
+  margin-right: 1%;
 }
 
 .right-column {
-  width: 30%;
+  width: 29%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
+  border: 1px solid #DFDFDF;
+  padding: 10px;
 }
-
+#rockpos-app .right-column .buttons-section{
+    padding: 15px;
+}
+#rockpos-app .right-column .buttons-section button{
+    height: 60px;
+    width: 25%;
+    padding: 7px;
+    background-color: #FFECB3;
+    margin: 5px; 
+}
